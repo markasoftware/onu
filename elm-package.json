@@ -1,7 +1,7 @@
 {
     "version": "0.0.0",
     "summary": "A simple card game",
-    "repository": "https://github.com/markasoftware/onu",
+    "repository": "https://github.com/markasoftware/onu.git",
     "license": "GPL",
     "source-directories": [
         "."
