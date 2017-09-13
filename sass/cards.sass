@@ -1,0 +1,48 @@
+$card-border-radius: 20px
+
+.card
+    border-top-right-radius: $card-border-radius
+    border-bottom-left-radius: $card-border-radius
+    border: solid 2px $primary
+    background-color: $whitish
+    position: absolute
+    height: 30vh
+    width: 20vh
+    transition: all 340ms 60ms
+
+.hover-float-up:hover
+    transform: translateY(-40px)
+
+.rank
+    font-family: $baloo
+    position: absolute
+    font-size: 2rem
+
+.rank-top-left
+    top: 0
+    left: 10px
+
+.rank-bottom-right
+    bottom: 0
+    right: 10px
+
+.art-outer-wrapper
+    position: absolute
+    width: 15%
+    left: 42.5%
+    top: 20%
+    height: 50%
+    overflow: hidden
+
+.art-inner-wrapper
+    transform: rotate(-28deg)
+
+.numerical-art-row
+    width: 100vw
+    height: 2vh
+    margin-top: 0.5vh
+    position: relative
+    left: -50vw
+
+.numerical-art-row:first-child
+    margin-top: 2vh

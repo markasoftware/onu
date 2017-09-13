@@ -6,6 +6,8 @@ module Main exposing (main)
 import Html exposing (Html, program, div, text)
 import Html.Attributes exposing (id, class)
 import Html.Events exposing (onClick)
+import Cards exposing (renderCard, CardAndContext, CardColor, CardRank)
+import CardStructures exposing (VisibleHand, genVisibleHand)
 
 
 main : Program Never Model Msg
@@ -33,6 +35,7 @@ init =
 
 type Msg
     = Play
+    | Noop
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -40,6 +43,9 @@ update msg model =
     case msg of
         Play ->
             ( { model | started = True }, Cmd.none )
+
+        Noop ->
+            ( model, Cmd.none )
 
 
 subscriptions : Model -> Sub Msg
@@ -58,4 +64,19 @@ view model =
                 ]
             ]
     else
-        div [] [ text "Not done yet" ]
+        CardStructures.genVisibleHand
+            { top = "50%"
+            , left = 100
+            , cards =
+                [ { color = Just Cards.Green
+                  , rank = Cards.Skip
+                  }
+                , { color = Just Cards.Blue
+                  , rank = Cards.Numerical 5
+                  }
+                ]
+            , spacing = 20
+            , leftUnit = "px"
+            , click = Noop
+            }
+            |> Cards.renderCardList

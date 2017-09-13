@@ -18,8 +18,6 @@ Install this stuff.
 
 Run `make`. That's easier than gulp, now isn't it? And you didn't even need node! And it won't build unmodified files!
 
-The first time you build, it will prompt you to install the elm dependencies. Hit enter and it should be fine. It will run non-interactively after that (unless we add extra dependencies)
-
 ## Playing
 
 Just visit `public/index.html` in your browser of choice.

@@ -4,7 +4,7 @@
     "repository": "https://github.com/markasoftware/onu.git",
     "license": "GPL",
     "source-directories": [
-        "."
+        "elm"
     ],
     "exposed-modules": [],
     "dependencies": {
