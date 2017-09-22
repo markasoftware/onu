@@ -64,19 +64,20 @@ view model =
                 ]
             ]
     else
-        CardStructures.genVisibleHand
+        CardStructures.genHiddenHand
             { top = "50%"
             , left = 100
             , cards =
-                [ { color = Just Cards.Green
-                  , rank = Cards.Skip
-                  }
-                , { color = Just Cards.Blue
-                  , rank = Cards.Numerical 5
-                  }
+                [ Just
+                    { color = Just Cards.Green
+                    , rank = Cards.Skip
+                    }
+                , Just
+                    { color = Just Cards.Blue
+                    , rank = Cards.Numerical 5
+                    }
                 ]
-            , spacing = 20
+            , spacing = 50
             , leftUnit = "px"
-            , click = Noop
             }
             |> Cards.renderCardList

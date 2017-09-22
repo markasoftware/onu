@@ -1,14 +1,33 @@
 $card-border-radius: 20px
 
 .card
-    border-top-right-radius: $card-border-radius
-    border-bottom-left-radius: $card-border-radius
-    border: solid 2px $primary
-    background-color: $whitish
     position: absolute
     height: 30vh
     width: 20vh
     transition: all 340ms 60ms
+    transform-style: preserve-3d
+
+.card-side
+    height: 100%
+    width: 100%
+    box-sizing: border-box
+    backface-visibility: hidden
+    position: absolute
+    border: solid 2px $primary
+
+.card-front
+    border-top-right-radius: $card-border-radius
+    border-bottom-left-radius: $card-border-radius
+    background-color: $whitish
+
+.card-back
+    border-top-left-radius: $card-border-radius
+    border-bottom-right-radius: $card-border-radius
+    background: #4b4a4a
+    text-align: center
+    color: $secondary
+    font-size: 6rem
+    padding-top: 3rem
 
 .hover-float-up:hover
     transform: translateY(-40px)
@@ -46,3 +65,6 @@ $card-border-radius: 20px
 
 .numerical-art-row:first-child
     margin-top: 2vh
+
+.flipped
+    transform: rotateY(180deg)

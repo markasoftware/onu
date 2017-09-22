@@ -11,3 +11,10 @@ maybe ifNothing ifJust subject =
 
         Just b ->
             ifJust b
+
+
+enumMap : (a -> Int -> b) -> List a -> List b
+enumMap mapper list =
+    List.map2 mapper list <|
+        List.range 1 <|
+            List.length list

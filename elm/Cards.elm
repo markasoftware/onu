@@ -60,15 +60,19 @@ renderCard card =
                 , ( hoverClass, True )
                 , ( "flipped", not card.visible )
                 ]
+
+        cardFaceChildren =
+            (renderRanks card.card)
+                ++ [ div [ class "art-outer-wrapper" ]
+                        [ div [ class "art-inner-wrapper" ] <| renderArt card.card
+                        ]
+                   ]
     in
         div
             [ styleAttr, clickAttr, classAttr ]
-            ((renderRanks card.card)
-                ++ [ div [ class "art-outer-wrapper" ]
-                        [ div [ class "art-inner-wrapper" ] (renderArt card.card)
-                        ]
-                   ]
-            )
+            [ div [ class "card-side card-front" ] cardFaceChildren
+            , div [ class "card-side card-back flipped" ] [ text "⚶" ]
+            ]
 
 
 renderRanks : Card -> List (Html msg)
@@ -140,7 +144,7 @@ colorToString color =
             "red"
 
         Blue ->
-            "glue"
+            "blue"
 
         Yellow ->
             "yellow"
