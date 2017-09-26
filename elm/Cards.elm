@@ -13,14 +13,17 @@ type alias Card =
     }
 
 
-type alias CardAndContext msg =
-    { card : Card
-    , visible : Bool
+type alias CardContext msg =
+    { visible : Bool
     , hoverClass : Maybe String
     , click : Maybe msg
     , left : String
     , top : String
     }
+
+
+type alias CardAndContext msg =
+    ( Card, CardContext msg )
 
 
 type CardColor
@@ -40,31 +43,31 @@ type CardRank
 
 
 renderCard : CardAndContext msg -> Html msg
-renderCard card =
+renderCard ( card, context ) =
     let
         hoverClass =
-            Maybe.withDefault "" card.hoverClass
+            Maybe.withDefault "" context.hoverClass
 
         clickAttr =
-            Util.maybe (attribute "noop" "noop") (\x -> onClick x) card.click
+            Util.maybe (attribute "noop" "noop") (\x -> onClick x) context.click
 
         styleAttr =
             style
-                [ ( "left", card.left )
-                , ( "top", card.top )
+                [ ( "left", context.left )
+                , ( "top", context.top )
                 ]
 
         classAttr =
             classList
                 [ ( "card", True )
                 , ( hoverClass, True )
-                , ( "flipped", not card.visible )
+                , ( "flipped", not context.visible )
                 ]
 
         cardFaceChildren =
-            (renderRanks card.card)
+            (renderRanks card)
                 ++ [ div [ class "art-outer-wrapper" ]
-                        [ div [ class "art-inner-wrapper" ] <| renderArt card.card
+                        [ div [ class "art-inner-wrapper" ] <| renderArt card
                         ]
                    ]
     in
@@ -158,4 +161,4 @@ serializeCard card =
 renderCardList : List (CardAndContext msg) -> Html msg
 renderCardList cards =
     Html.Keyed.node "div" [] <|
-        List.map (\card -> ( serializeCard card.card, renderCard card )) cards
+        List.map (\( card, context ) -> ( serializeCard card, renderCard ( card, context ) )) cards

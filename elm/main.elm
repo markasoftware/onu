@@ -6,8 +6,8 @@ module Main exposing (main)
 import Html exposing (Html, program, div, text)
 import Html.Attributes exposing (id, class)
 import Html.Events exposing (onClick)
-import Cards exposing (renderCard, CardAndContext, CardColor, CardRank)
-import CardStructures exposing (VisibleHand, genVisibleHand)
+import Cards exposing (renderCard, Card, CardContext, CardColor, CardRank)
+import CardStructures exposing (genVisibleHand, genInvisibleHand)
 
 
 main : Program Never Model Msg
@@ -22,12 +22,14 @@ main =
 
 type alias Model =
     { started : Bool
+    , testBool : Bool
     }
 
 
 init : ( Model, Cmd Msg )
 init =
     ( { started = False
+      , testBool = False
       }
     , Cmd.none
     )
@@ -36,6 +38,7 @@ init =
 type Msg
     = Play
     | Noop
+    | ToggleTestBool
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -43,6 +46,9 @@ update msg model =
     case msg of
         Play ->
             ( { model | started = True }, Cmd.none )
+
+        ToggleTestBool ->
+            ( { model | testBool = not model.testBool }, Cmd.none )
 
         Noop ->
             ( model, Cmd.none )
@@ -63,20 +69,33 @@ view model =
                 , div [ id "blurred-play-button-background" ] []
                 ]
             ]
+    else if model.testBool then
+        CardStructures.genInvisibleHand
+            { top = "10%"
+            , left = 400
+            , cards =
+                [ { color = Just Cards.Green
+                  , rank = Cards.Skip
+                  }
+                ]
+            , click = Nothing
+            , spacing = 50
+            , leftUnit = "px"
+            }
+            |> Cards.renderCardList
     else
-        CardStructures.genHiddenHand
+        CardStructures.genVisibleHand
             { top = "50%"
             , left = 100
             , cards =
-                [ Just
-                    { color = Just Cards.Green
-                    , rank = Cards.Skip
-                    }
-                , Just
-                    { color = Just Cards.Blue
-                    , rank = Cards.Numerical 5
-                    }
+                [ { color = Just Cards.Green
+                  , rank = Cards.Skip
+                  }
+                , { color = Just Cards.Blue
+                  , rank = Cards.Numerical 5
+                  }
                 ]
+            , click = Just ToggleTestBool
             , spacing = 50
             , leftUnit = "px"
             }
